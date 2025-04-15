@@ -151,9 +151,9 @@
             flex-wrap: nowrap;
             justify-content: center;
             gap: 1.5em;
-            margin: 2em 0 3em 0;
-            width: 100%;
-            max-width: 1400px;
+            margin: 2em auto 3em auto;
+            width: fit-content;
+            max-width: 100%;
             box-sizing: border-box;
             overflow-x: auto;
         }
@@ -176,10 +176,14 @@
             width: 220px;
             min-width: 200px;
             max-width: 240px;
+            min-height: 350px;
             text-align: center;
             transition: box-shadow 0.25s, transform 0.22s, border 0.22s;
             border: 2px solid transparent;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .feature-card:hover {
             box-shadow: 0 8px 40px rgba(76,123,217,0.18);
@@ -207,6 +211,7 @@
             color: #555;
             margin-bottom: 1.4em;
             min-height: 54px;
+            flex-grow: 1;
         }
         .feature-card .more-btn {
             background: #4c7bd9;
@@ -219,6 +224,7 @@
             transition: background 0.18s;
             font-weight: 500;
             box-shadow: 0 2px 8px rgba(76,123,217,0.08);
+            margin-top: auto;
         }
         .feature-card .more-btn:hover {
             background: #355fa3;
@@ -264,9 +270,9 @@
             flex-wrap: nowrap;
             justify-content: center;
             gap: 1.5em;
-            margin: 2em 0 3em 0;
-            width: 100%;
-            max-width: 1400px;
+            margin: 2em auto 3em auto;
+            width: fit-content;
+            max-width: 100%;
             box-sizing: border-box;
             overflow-x: auto;
         }
