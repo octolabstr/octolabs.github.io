@@ -1,73 +1,743 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OctoLabs</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #00c9ff, #92fe9d);
-      color: #fff;
-      text-align: center;
-    }
-    header {
-      padding: 60px 20px;
-    }
-    h1 {
-      font-size: 48px;
-      margin: 0;
-    }
-    p {
-      font-size: 20px;
-      margin: 10px 0 30px;
-    }
-    .logo-placeholder {
-      width: 100px;
-      height: 100px;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      line-height: 100px;
-      font-size: 14px;
-    }
-    section {
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.1);
-      margin: 10px;
-      border-radius: 10px;
-    }
-    footer {
-      padding: 20px;
-      font-size: 14px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-    a {
-      color: #fff;
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octolabs - Bulut Tabanlı Yönetim Çözümleri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fbfcff;
+            color: #263a5f;
+        }
+        header {
+            background: #e8eefa;
+            color: #263a5f;
+            padding: 0.5em 0 0.5em 0;
+            box-shadow: 0 2px 8px rgba(76,123,217,0.04);
+        }
+        .nav-container {
+            width: 95%;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        .logo i {
+            color: #7ea7f9;
+            margin-right: 0.5em;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            height: 56px;
+        }
+        ul.menu {
+            list-style: none;
+            margin: 0 2em 0 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+        }
+        ul.menu > li {
+            position: relative;
+        }
+        ul.menu > li > a, ul.menu > li > .dropdown-toggle {
+            color: #263a5f;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            gap: 0.4em;
+            position: relative;
+        }
+        ul.menu > li > a:hover, ul.menu > li > button:hover {
+            background: #e3edfd;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #fff;
+            color: #263a5f;
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(126,167,249,0.10);
+            z-index: 10;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.2em;
+            padding: 0.4em 0;
+            animation: dropdownFade 0.16s ease;
+        }
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown-content a {
+            color: #222;
+            padding: 0.7em 1.2em;
+            display: block;
+            text-decoration: none;
+            transition: background 0.18s;
+            font-size: 1rem;
+            border-radius: 6px;
+        }
+        .dropdown-content a:hover {
+            background: #f0f5fe;
+        }
+        ul.menu > li:hover .dropdown-content, ul.menu > li:focus-within .dropdown-content {
+            display: block;
+        }
+        .lang-switch {
+            background: #7ea7f9;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1.2em;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 1em;
+            font-size: 1rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        .hero {
+            text-align: center;
+            margin: 3em auto 2em auto;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.4em;
+        }
+        .hero .slogan {
+            font-size: 1.3rem;
+            color: #4c7bd9;
+            margin-bottom: 1.2em;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 1.8em;
+        }
+        .features {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 1.5em;
+            margin: 2em 0 3em 0;
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+        @media (max-width: 1200px) {
+            .features {
+                gap: 1.2em;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+            .feature-card {
+                min-width: 220px;
+                max-width: 320px;
+            }
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(76,123,217,0.10);
+            padding: 2em 1em 1.7em 1em;
+            width: 220px;
+            min-width: 200px;
+            max-width: 240px;
+            text-align: center;
+            transition: box-shadow 0.25s, transform 0.22s, border 0.22s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 40px rgba(76,123,217,0.18);
+            transform: translateY(-8px) scale(1.035);
+            border: 2px solid #b7d0f9;
+            z-index: 2;
+        }
+        .feature-card i {
+            font-size: 2.8rem;
+            color: #4c7bd9;
+            margin-bottom: 0.8em;
+            transition: color 0.2s;
+        }
+        .feature-card:hover i {
+            color: #355fa3;
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.6em;
+            font-weight: bold;
+            color: #263a5f;
+        }
+        .feature-card p {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1.4em;
+            min-height: 54px;
+        }
+        .feature-card .more-btn {
+            background: #4c7bd9;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 0.55em 1.4em;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.18s;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(76,123,217,0.08);
+        }
+        .feature-card .more-btn:hover {
+            background: #355fa3;
+        }
+        footer {
+            background: #262d3f;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0 0.5em 0;
+            font-size: 0.97rem;
+            margin-top: 2em;
+        }
+        @media (max-width: 850px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        /* Section backgrounds */
+        section {
+            padding: 3.5em 0 3em 0;
+            width: 100%;
+        }
+        .section-bg {
+            background: linear-gradient(90deg, #f7f7f8 60%, #e8eefa 100%);
+        }
+        .section-alt {
+            background: linear-gradient(90deg, #e8eefa 60%, #f7f7f8 100%);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1.2em;
+            color: #4c7bd9;
+            font-weight: bold;
+        }
+        .section-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .features {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 1.5em;
+            margin: 2em 0 3em 0;
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+        @media (max-width: 1200px) {
+            .features {
+                gap: 1.2em;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+            .feature-card {
+                min-width: 220px;
+                max-width: 320px;
+            }
+        }
+        /* Reference & About Cards */
+        .info-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            justify-content: center;
+        }
+        .client-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 1.5em;
+            padding-bottom: 1em;
+            scrollbar-width: thin;
+            scrollbar-color: #b7d0f9 #f7f7f8;
+        }
+        .client-scroll::-webkit-scrollbar {
+            height: 10px;
+        }
+        .client-scroll::-webkit-scrollbar-thumb {
+            background: #b7d0f9;
+            border-radius: 6px;
+        }
+        .client-scroll::-webkit-scrollbar-track {
+            background: #f7f7f8;
+            border-radius: 6px;
+        }
+        .client-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(76,123,217,0.08);
+            padding: 1.5em 1.3em 1.3em 1.3em;
+            min-width: 240px;
+            max-width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: box-shadow 0.22s, transform 0.2s;
+            border: 2px solid transparent;
+        }
+        .client-card:hover {
+            box-shadow: 0 8px 40px rgba(76,123,217,0.18);
+            transform: translateY(-6px) scale(1.03);
+            border: 2px solid #b7d0f9;
+        }
+        .client-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.8em;
+            border: 2px solid #e8eefa;
+        }
+        .client-info h3 {
+            font-size: 1.13rem;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        .client-info p {
+            font-size: 0.97rem;
+            color: #555;
+        }
+        .info-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(76,123,217,0.06);
+            padding: 1.5em 1.2em;
+            width: 270px;
+            text-align: center;
+        }
+        .info-card i {
+            font-size: 2rem;
+            color: #4c7bd9;
+            margin-bottom: 0.6em;
+        }
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5em;
+        }
+        .info-card p {
+            font-size: 0.97rem;
+            color: #555;
+        }
+        /* Contact */
+        .contact-form {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(76,123,217,0.06);
+            padding: 2em 1.5em;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .contact-form label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.3em;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.7em;
+            margin-bottom: 1em;
+            border: 1px solid #b6c6e3;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .contact-form button {
+            background: #4c7bd9;
+            color: #fff;
+            border: none;
+            padding: 0.7em 2em;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .contact-form button:hover {
+            background: #355fa3;
+        }
+        /* Section spacing for mobile */
+        @media (max-width: 850px) {
+            .features, .info-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            section {
+                padding: 2em 0 1.5em 0;
+            }
+        }
+    </style>
+    <script>
+        // Simple language toggle
+        function toggleLang() {
+            const tr = document.querySelectorAll('.tr');
+            const en = document.querySelectorAll('.en');
+            const lang = document.documentElement.lang;
+            if(lang === 'tr') {
+                document.documentElement.lang = 'en';
+                tr.forEach(e=>e.style.display='none');
+                en.forEach(e=>e.style.display='');
+            } else {
+                document.documentElement.lang = 'tr';
+                en.forEach(e=>e.style.display='none');
+                tr.forEach(e=>e.style.display='');
+            }
+        }
+        document.addEventListener('DOMContentLoaded',()=>{
+            if(document.documentElement.lang==='tr'){
+                document.querySelectorAll('.en').forEach(e=>e.style.display='none');
+            } else {
+                document.querySelectorAll('.tr').forEach(e=>e.style.display='none');
+            }
+        });
+    </script>
+</head>
 </head>
 <body>
-  <header>
-    <div class="logo-placeholder">LOGO</div>
-    <h1>OctoLabs</h1>
-    <p>Yenilikçi yazılım çözümleri geliştiriyoruz.</p>
-  </header>
-
-  <section>
-    <h2>Hakkımızda</h2>
-    <p>OctoLabs, modern teknolojilerle işinizi dijitale taşır. Web, mobil ve bulut tabanlı yazılım projelerinde çözüm ortağınızız.</p>
-  </section>
-
-  <section>
-    <h2>İletişim</h2>
-    <p>info@octolabs.com.tr</p>
-  </section>
-
-  <footer>
-    © 2025 OctoLabs. Tüm hakları saklıdır.
-  </footer>
+    <header>
+        <div class="nav-container">
+            <div class="logo"><i class="fa-solid fa-cloud"></i>Octolabs</div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="#home" class="tr">Anasayfa</a><a href="#home" class="en">Home</a></li>
+                    <li>
+                        <a href="#products" class="dropdown-toggle tr">Ürünler <i class="fa fa-caret-down"></i></a>
+                        <a href="#products" class="dropdown-toggle en">Products <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#spor" class="tr">Spor Okulları</a>
+                            <a href="#spor" class="en">Sports Schools</a>
+                            <a href="#site" class="tr">Site ve Apartman Yönetimi</a>
+                            <a href="#site" class="en">Site & Apartment Mgmt</a>
+                            <a href="#surucu" class="tr">Sürücü Kursu Yönetimi</a>
+                            <a href="#surucu" class="en">Driving School Mgmt</a>
+                            <a href="#kafe" class="tr">Kafe Yönetimi</a>
+                            <a href="#kafe" class="en">Cafe Management</a>
+                            <a href="#varlik" class="tr">Bireysel Varlık Yönetimi</a>
+                            <a href="#varlik" class="en">Personal Asset Mgmt</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#corporate" class="dropdown-toggle tr">Kurumsal <i class="fa fa-caret-down"></i></a>
+                        <a href="#corporate" class="dropdown-toggle en">Corporate <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#about" class="tr">Hakkımızda</a>
+                            <a href="#about" class="en">About Us</a>
+                            <a href="#quality" class="tr">Kalite</a>
+                            <a href="#quality" class="en">Quality</a>
+                            <a href="#policy" class="tr">Politikamız</a>
+                            <a href="#policy" class="en">Our Policy</a>
+                            <a href="#info" class="tr">Bilgi Güvenliği</a>
+                            <a href="#info" class="en">Info Security</a>
+                            <a href="#surdurulebilirlik" class="tr">Sürdürülebilirlik</a>
+                            <a href="#surdurulebilirlik" class="en">Sustainability</a>
+                            <a href="#kariyer" class="tr">Kariyer</a>
+                            <a href="#kariyer" class="en">Career</a>
+                        </div>
+                    </li>
+                    <li><a href="#references" class="tr">Referanslar</a><a href="#references" class="en">References</a></li>
+                    <li>
+                        <a href="#support" class="dropdown-toggle tr">Destek <i class="fa fa-caret-down"></i></a>
+                        <a href="#support" class="dropdown-toggle en">Support <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#videos" class="tr">Destek Videoları</a>
+                            <a href="#videos" class="en">Support Videos</a>
+                            <a href="#demo" class="tr">Demo Kurulumu</a>
+                            <a href="#demo" class="en">Demo Setup</a>
+                            <a href="#sales" class="tr">Satış Desteği</a>
+                            <a href="#sales" class="en">Sales Support</a>
+                        </div>
+                    </li>
+                    <li><a href="#contact" class="tr">İletişim</a><a href="#contact" class="en">Contact</a></li>
+                </ul>
+                <button class="lang-switch" onclick="toggleLang()">TR / EN</button>
+            </nav>
+        </div>
+    </header>
+    <section class="hero" id="home">
+        <h1 class="tr">İşinizi Hafifletin, Geleceğe Yön Verin!</h1>
+        <h1 class="en">Lighten Your Work, Shape the Future!</h1>
+        <div class="slogan tr">Sektörünüze Uygun, Kullanıcı Dostu Bulut Yazılımlar</div>
+        <div class="slogan en">User-Friendly Cloud Software Tailored for Your Sector</div>
+        <p class="tr">Spor Okulları, Kafeler, Site ve Apartman Yöneticileri ile Bireysel Varlık Yönetimi gibi sektörlere özel, uçtan uca basit ve kullanıcı dostu, özet ve detay raporlar sunan bulut tabanlı yazılım çözümleri sunuyorum. 20-60 yaş arası birey ve firmalar için uygun maliyetli, işinizi kolaylaştıracak çözümler burada.</p>
+        <p class="en">I offer simple, user-friendly, cloud-based software solutions with summary and detailed reports for sectors such as Sports Schools, Cafes, Site & Apartment Managers, and Personal Asset Management. Affordable and efficient solutions for individuals and businesses aged 20-60.</p>
+    </section>
+    <section class="section-bg" id="products">
+        <div class="section-title tr">Ürünler</div>
+        <div class="section-title en">Products</div>
+        <div class="section-content features">
+            <div class="feature-card" id="spor">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h3 class="tr">Spor Okulları</h3>
+                <h3 class="en">Sports Schools</h3>
+                <p class="tr">Kayıt, ödeme ve antrenman takibiyle spor okullarınız için tam kontrol ve kolay raporlama.</p>
+                <p class="en">Full control and easy reporting for sports schools with registration, payment, and training tracking.</p>
+                <button class="more-btn tr">Daha fazla bilgi</button>
+                <button class="more-btn en">More info</button>
+            </div>
+            <div class="feature-card" id="site">
+                <i class="fa-solid fa-building"></i>
+                <h3 class="tr">Site & Apartman Yönetimi</h3>
+                <h3 class="en">Site & Apartment Mgmt</h3>
+                <p class="tr">Aidat, duyuru, bakım ve iletişim süreçlerini tek panelden yönetin.</p>
+                <p class="en">Manage dues, announcements, maintenance, and communication from a single panel.</p>
+                <button class="more-btn tr">Daha fazla bilgi</button>
+                <button class="more-btn en">More info</button>
+            </div>
+            <div class="feature-card" id="surucu">
+                <i class="fa-solid fa-car"></i>
+                <h3 class="tr">Sürücü Kursu Yönetimi</h3>
+                <h3 class="en">Driving School Mgmt</h3>
+                <p class="tr">Aday takibi, sınav ve ödeme süreçlerini kolayca yönetin.</p>
+                <p class="en">Easily manage candidate tracking, exams, and payment processes.</p>
+                <button class="more-btn tr">Daha fazla bilgi</button>
+                <button class="more-btn en">More info</button>
+            </div>
+            <div class="feature-card" id="kafe">
+                <i class="fa-solid fa-mug-hot"></i>
+                <h3 class="tr">Kafe Yönetimi</h3>
+                <h3 class="en">Cafe Management</h3>
+                <p class="tr">Sipariş, stok ve müşteri yönetimi ile kafenizi dijitalleştirin.</p>
+                <p class="en">Digitize your cafe with order, stock, and customer management.</p>
+                <button class="more-btn tr">Daha fazla bilgi</button>
+                <button class="more-btn en">More info</button>
+            </div>
+            <div class="feature-card" id="varlik">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <h3 class="tr">Bireysel Varlık Yönetimi</h3>
+                <h3 class="en">Personal Asset Mgmt</h3>
+                <p class="tr">Gelir-gider, yatırım ve varlıklarınızı güvenle takip edin.</p>
+                <p class="en">Securely track your income, expenses, investments, and assets.</p>
+                <button class="more-btn tr">Daha fazla bilgi</button>
+                <button class="more-btn en">More info</button>
+            </div>
+        </div>
+    </section>
+    <section class="section-alt" id="corporate">
+        <div class="section-title tr">Kurumsal</div>
+        <div class="section-title en">Corporate</div>
+        <div class="section-content info-cards">
+            <div class="info-card" id="about">
+                <i class="fa-solid fa-users"></i>
+                <h3 class="tr">Hakkımızda</h3>
+                <h3 class="en">About Us</h3>
+                <p class="tr">Yenilikçi yazılım çözümleriyle işletmelerin dijital dönüşümüne liderlik ediyoruz. Uzman ekibimizle müşteri memnuniyetini ve sürdürülebilir başarıyı ön planda tutuyoruz.</p>
+                <p class="en">We lead the digital transformation of businesses with innovative software solutions. Our expert team prioritizes customer satisfaction and sustainable success.</p>
+            </div>
+            <div class="info-card" id="quality">
+                <i class="fa-solid fa-star"></i>
+                <h3 class="tr">Kalite</h3>
+                <h3 class="en">Quality</h3>
+                <p class="tr">Müşteri ihtiyaçlarını doğru analiz ederek, sürekli iyileştirme ve yüksek kalite standartlarıyla hizmet sunuyoruz.</p>
+                <p class="en">We provide services by accurately analyzing customer needs, with continuous improvement and high quality standards.</p>
+            </div>
+            <div class="info-card" id="policy">
+                <i class="fa-solid fa-scroll"></i>
+                <h3 class="tr">Politikamız</h3>
+                <h3 class="en">Our Policy</h3>
+                <p class="tr">Şeffaflık, müşteri memnuniyeti ve etik değerlere bağlılık temel politikamızdır.</p>
+                <p class="en">Transparency, customer satisfaction, and commitment to ethical values are our core policies.</p>
+            </div>
+            <div class="info-card" id="info">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3 class="tr">Bilgi Güvenliği</h3>
+                <h3 class="en">Info Security</h3>
+                <p class="tr">Verilerinizin gizliliği ve güvenliği bizim için önceliklidir. Tüm süreçlerimizde bilgi güvenliği standartlarına uyarız.</p>
+                <p class="en">The privacy and security of your data is our priority. We adhere to information security standards in all our processes.</p>
+            </div>
+            <div class="info-card" id="surdurulebilirlik">
+                <i class="fa-solid fa-leaf"></i>
+                <h3 class="tr">Sürdürülebilirlik</h3>
+                <h3 class="en">Sustainability</h3>
+                <p class="tr">Çevreye duyarlı, sürdürülebilir ve yenilikçi çözümler geliştiriyoruz.</p>
+                <p class="en">We develop environmentally conscious, sustainable, and innovative solutions.</p>
+            </div>
+            <div class="info-card" id="kariyer">
+                <i class="fa-solid fa-user-tie"></i>
+                <h3 class="tr">Kariyer</h3>
+                <h3 class="en">Career</h3>
+                <p class="tr">Ekip ruhu ve sürekli gelişimle, çalışanlarımızın kariyer yolculuğunu destekliyoruz.</p>
+                <p class="en">With team spirit and continuous development, we support the career journey of our employees.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section-bg" id="references">
+        <div class="section-title tr">Referanslar</div>
+        <div class="section-title en">References</div>
+        <div class="section-content client-scroll">
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ali Yılmaz" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Ali Yılmaz</h3>
+                    <h3 class="en">Ali Yilmaz</h3>
+                    <p class="tr">"Octolabs ile işlerimiz çok daha kolay!"</p>
+                    <p class="en">"Our work is much easier with Octolabs!"</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Elif Demir" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Elif Demir</h3>
+                    <h3 class="en">Elif Demir</h3>
+                    <p class="tr">"Kullanıcı dostu arayüz ve hızlı destek."</p>
+                    <p class="en">"User-friendly interface and fast support."</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Mehmet Kaya" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Mehmet Kaya</h3>
+                    <h3 class="en">Mehmet Kaya</h3>
+                    <p class="tr">"Raporlama ve analiz araçları çok başarılı."</p>
+                    <p class="en">"Reporting and analytics tools are excellent."</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/women/38.jpg" alt="Zeynep Şahin" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Zeynep Şahin</h3>
+                    <h3 class="en">Zeynep Sahin</h3>
+                    <p class="tr">"Destek ekibi çok ilgili ve hızlı."</p>
+                    <p class="en">"The support team is very responsive and fast."</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Burak Aydın" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Burak Aydın</h3>
+                    <h3 class="en">Burak Aydin</h3>
+                    <p class="tr">"Geçiş süreci çok kolay oldu, teşekkürler!"</p>
+                    <p class="en">"The transition process was very easy, thank you!"</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Selin Arslan" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Selin Arslan</h3>
+                    <h3 class="en">Selin Arslan</h3>
+                    <p class="tr">"Kapsamlı ve güvenilir bir yazılım çözümü."</p>
+                    <p class="en">"A comprehensive and reliable software solution."</p>
+                </div>
+            </div>
+            <div class="client-card">
+                <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Ahmet Er" class="client-avatar">
+                <div class="client-info">
+                    <h3 class="tr">Ahmet Er</h3>
+                    <h3 class="en">Ahmet Er</h3>
+                    <p class="tr">"Her şey beklentimin üzerinde!"</p>
+                    <p class="en">"Everything exceeded my expectations!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-alt" id="support">
+        <div class="section-title tr">Destek</div>
+        <div class="section-title en">Support</div>
+        <div class="section-content info-cards">
+            <div class="info-card">
+                <i class="fa-solid fa-video"></i>
+                <h3 class="tr">Destek Videoları</h3>
+                <h3 class="en">Support Videos</h3>
+                <p class="tr">Kullanım rehberleri ve ipuçları için videolarımızı izleyin.</p>
+                <p class="en">Watch our videos for guides and tips.</p>
+            </div>
+            <div class="info-card">
+                <i class="fa-solid fa-desktop"></i>
+                <h3 class="tr">Demo Kurulumu</h3>
+                <h3 class="en">Demo Setup</h3>
+                <p class="tr">Demo talebiniz için bize ulaşın.</p>
+                <p class="en">Contact us for a demo request.</p>
+            </div>
+            <div class="info-card">
+                <i class="fa-solid fa-handshake"></i>
+                <h3 class="tr">Satış Desteği</h3>
+                <h3 class="en">Sales Support</h3>
+                <p class="tr">Satış öncesi ve sonrası destek ekibimiz yanınızda.</p>
+                <p class="en">Our support team is with you before and after sales.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section-bg" id="contact">
+        <div class="section-title tr">İletişim</div>
+        <div class="section-title en">Contact</div>
+        <div class="section-content">
+            <form class="contact-form" action="https://formspree.io/f/mleqzjey" method="POST">
+    <input type="hidden" name="_to" value="ridvan.soyler@octolabs.com.tr">
+    <div id="mail-success" style="display:none;color:#2e8b57;margin-bottom:1em;">Mesajınız başarıyla gönderildi!</div>
+                <label for="name" class="tr">Adınız</label>
+                <label for="name" class="en">Your Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email" class="tr">E-posta</label>
+                <label for="email" class="en">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message" class="tr">Mesajınız</label>
+                <label for="message" class="en">Your Message</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit" class="tr">Gönder</button>
+                <button type="submit" class="en">Send</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div>
+            <span class="tr">© 2025 Octolabs. Tüm hakları saklıdır.</span>
+            <span class="en">© 2025 Octolabs. All rights reserved.</span>
+        </div>
+        
+    </footer>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/67fdf4aad825181910e09d10/1ios07eoa';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>
