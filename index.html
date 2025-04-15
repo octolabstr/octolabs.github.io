@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -40,6 +41,12 @@
             letter-spacing: 2px;
             display: flex;
             align-items: center;
+        }
+        .logo-img {
+            height: 48px;
+            width: auto;
+            margin-right: 0.5em;
+            display: inline-block;
         }
         .logo i {
             color: #7ea7f9;
@@ -447,7 +454,8 @@
 <body>
     <header>
         <div class="nav-container">
-            <div class="logo"><i class="fa-solid fa-cloud"></i>Octolabs</div>
+            <div class="logo">
+    <img src="logo.png" alt="Octolabs Logo" class="logo-img"><i class="fa-solid fa-cloud"></i>Octolabs</div>
             <nav>
                 <ul class="menu">
                     <li><a href="#home" class="tr">Anasayfa</a><a href="#home" class="en">Home</a></li>
