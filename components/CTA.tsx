@@ -6,32 +6,29 @@ import { ArrowRight } from "lucide-react";
 
 export default function CTA() {
   const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
-  const FORM_ACTION = "https://formspree.io/f/YOUR_FORM_ID";
+    const FORM_ACTION = "https://formsubmit.co/ajax/anil.erdogan@octolabs.com.tr";
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (FORM_ACTION.includes("YOUR_FORM_ID")) {
-      setStatus("err");
-      return;
-    }
-    const form = e.currentTarget;
-    try {
-      const res = await fetch(FORM_ACTION, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      });
-      if (res.ok) {
-        setStatus("ok");
-        form.reset();
-      } else {
-        setStatus("err");
-      }
-    } catch {
-      setStatus("err");
-    }
-  }
-
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+          e.preventDefault();
+          const form = e.currentTarget;
+          const formData = new FormData(form);
+          formData.append("_subject", "Octolabs web sitesi - yeni iletisim formu mesaji");
+          formData.append("_template", "table");
+          formData.append("_captcha", "false");
+          try {
+                  const res = await fetch(FORM_ACTION, {
+                            method: "POST",
+                            body: formData,
+                            headers: { Accept: "application/json" },
+                  });
+                  if (res.ok) {
+                            setStatus("ok");
+                            form.reset();
+                  } else {
+                            setStatus("err");
+                  }
+          } catch {
+                  setStatus("err");
   return (
     <section id="contact" className="relative overflow-hidden bg-[#050B18] py-24 lg:py-28">
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)]" />
@@ -103,7 +100,7 @@ export default function CTA() {
           )}
           {status === "err" && (
             <p className="mt-4 text-center text-[13.5px] font-medium text-orange-300">
-              Form henüz bir gönderim adresine bağlanmadı — bkz. README.md &gt; Formspree kurulumu.
+              Bir sorun oluştu, lütfen tekrar deneyin ya da doğrudan anil.erdogan@octolabs.com.tr adresine yazın.
             </p>
           )}
         </motion.form>
