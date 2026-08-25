@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --deep-navy: #071a3d;
+  --corporate-navy: #0d2a5c;
+  --octolabs-blue: #123f7a;
+  --tech-cyan: #12a8c4;
+  --bright-cyan: #22c7df;
+  --light-bg: #f6f8fb;
+  --text-gray: #667085;
+  --dark-bg: #050b18;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--light-bg);
+  color: var(--deep-navy);
+}
+
+::selection {
+  background: var(--tech-cyan);
+  color: #fff;
+}
+
+.section-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(34, 199, 223, 0.35);
+}
+
+/* subtle grid backdrop used in dark sections */
+.bg-grid {
+  background-image: linear-gradient(rgba(18, 168, 196, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 168, 196, 0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
