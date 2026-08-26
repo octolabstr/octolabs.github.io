@@ -31,6 +31,19 @@ export interface OctopusGeometryConfig {
   r3?: number; // tip / terminal node
   bendDeg?: number; // how sharply arms bend outward
   startOffsetDeg?: number; // rotate the whole 8-arm fan
+  /**
+   * When false (default), the bend direction alternates per arm (i % 2), which
+   * gives the compact <Logo/> and <OctopusAnimation/> a lively zigzag look —
+   * fine there since neither anchors wide text labels to the tips. That same
+   * alternation collapses EVERY adjacent pair of tips to ~2×bendDeg apart
+   * (e.g. ~1° at the default 22° bend), which is invisible for icon dots but
+   * makes label badges anchored at `tip`/`tipPct` overlap/stack.
+   * When true, every arm bends the same rotational direction instead, which
+   * shifts the whole 8-arm fan by a constant offset and — critically —
+   * preserves the full 45° angular spacing between ALL consecutive tips
+   * regardless of bendDeg. Use this for any diagram that labels the tips.
+   */
+  uniformBend?: boolean;
 }
 
 export function generateOctopusArms(config: OctopusGeometryConfig = {}): OctopusArm[] {
@@ -47,7 +60,7 @@ export function generateOctopusArms(config: OctopusGeometryConfig = {}): Octopus
   const arms: OctopusArm[] = [];
   for (let i = 0; i < 8; i++) {
     const theta = startOffset + (i * Math.PI) / 4;
-    const bendDir = i % 2 === 0 ? 1 : -1;
+    const bendDir = config.uniformBend ? 1 : i % 2 === 0 ? 1 : -1;
     const theta2 = theta + bendDir * bend;
 
     const pt = (r: number, ang: number): ArmPoint => [
