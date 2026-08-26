@@ -4,6 +4,7 @@ import Solutions from "@/components/Solutions";
 import Process from "@/components/Process";
 import Intelligence from "@/components/Intelligence";
 import Integrations from "@/components/Integrations";
+import AISolutions from "@/components/AISolutions";
 import WhyOctolabs from "@/components/WhyOctolabs";
 import Projects from "@/components/Projects";
 import CTA from "@/components/CTA";
@@ -19,6 +20,7 @@ export default function Home() {
         <Process />
         <Intelligence />
         <Integrations />
+        <AISolutions />
         <WhyOctolabs />
         <Projects />
         <CTA />
