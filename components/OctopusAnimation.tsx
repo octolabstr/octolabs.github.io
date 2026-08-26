@@ -19,6 +19,10 @@ const SERVICES = [
 
 const STEP_MS = 2100;
 const DRAW_MS = 650;
+// How long the closing caption stays on screen before the whole sequence
+// restarts from arm 1 — keeps the hero perpetually alive instead of running
+// once and going permanently still (which needed a page refresh to replay).
+const IDLE_HOLD_MS = 4500;
 
 type Phase = "sequence" | "flash" | "idle";
 
@@ -36,24 +40,44 @@ export default function OctopusAnimation() {
   useEffect(() => {
     if (prefersReduced) return; // static, fully-drawn, all labels visible — no timers
     const timers: ReturnType<typeof setTimeout>[] = [];
+    let cancelled = false;
     let i = 0;
+
+    const schedule = (fn: () => void, ms: number) => {
+      const id = setTimeout(() => {
+        if (!cancelled) fn();
+      }, ms);
+      timers.push(id);
+    };
+
     const runStep = () => {
       setActiveIndex(i);
       setPhase("sequence");
       if (i < arms.length - 1) {
-        timers.push(setTimeout(() => { i += 1; runStep(); }, STEP_MS));
+        schedule(() => { i += 1; runStep(); }, STEP_MS);
       } else {
-        timers.push(
-          setTimeout(() => {
-            setPhase("flash");
-            setActiveIndex(null);
-            timers.push(setTimeout(() => setPhase("idle"), 900));
-          }, STEP_MS)
-        );
+        schedule(() => {
+          setPhase("flash");
+          setActiveIndex(null);
+          schedule(() => {
+            setPhase("idle");
+            // hold on the closing caption for a beat, then loop the whole
+            // sequence again from the first arm — runs indefinitely while
+            // the hero is mounted, no refresh needed to see it replay.
+            schedule(() => {
+              i = 0;
+              runStep();
+            }, IDLE_HOLD_MS);
+          }, 900);
+        }, STEP_MS);
       }
     };
-    timers.push(setTimeout(runStep, 500));
-    return () => timers.forEach(clearTimeout);
+
+    schedule(runStep, 500);
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+    };
   }, [prefersReduced]);
 
   const isFlash = phase === "flash";
