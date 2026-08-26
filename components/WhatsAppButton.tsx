@@ -2,10 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-// TODO: replace with the real WhatsApp Business number before enabling this
-// component, in international format without "+", spaces or leading zero
-// (e.g. a number like +90 5xx xxx xx xx becomes "905xxxxxxxxx").
-const WHATSAPP_NUMBER = "90XXXXXXXXXX";
+const WHATSAPP_NUMBER = "905455118620";
 const PREFILLED_MESSAGE = "Merhaba Octolabs, web siteniz üzerinden ulaşıyorum. Projem hakkında bilgi almak istiyorum.";
 
 export default function WhatsAppButton() {
