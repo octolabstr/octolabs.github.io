@@ -3,7 +3,19 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { generateOctopusArms } from "@/lib/octopus-geometry";
 
-const arms = generateOctopusArms({ viewBox: 520, center: 260, r0: 56, r1: 88, r2: 140, r3: 195, bendDeg: 22 });
+// uniformBend keeps all 8 tips exactly 45° apart (labels need the room —
+// the alternating bend used by the small Logo/Hero mark collapses adjacent
+// tips to ~1° apart, which is invisible for a dot but overlaps text badges).
+const arms = generateOctopusArms({
+  viewBox: 520,
+  center: 260,
+  r0: 56,
+  r1: 88,
+  r2: 140,
+  r3: 205,
+  bendDeg: 14,
+  uniformBend: true,
+});
 
 const SYSTEMS = ["ERP", "CRM", "Banka", "E-Belge", "BI", "İK", "Satın Alma", "Stok"];
 
