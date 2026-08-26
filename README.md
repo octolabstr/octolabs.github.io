@@ -9,9 +9,9 @@ kurumsal/teknoloji web sitesi.
 - **Hero'daki ahtapot animasyonu**: Merkezdeki logo halkasından 8 devre-hattı (PCB trace)
   tarzında kol çıkar. Sayfa yüklendiğinde kollar sırayla "çizilir", her kolun ucunda o
   hizmetin adı belirir (ERP Danışmanlık → Butik ERP Çözümleri → ... → Dijital Dönüşüm),
-  tur tamamlanınca tüm kollar kısa süreliğine parlar ve kapanış mesajı belirir. Sonrasında
-  sakin/ambient bir durgun hâle geçer (sürekli tekrar etmez — abartılı/yorucu animasyondan
-  kaçınmak için).
+  tur tamamlanınca tüm kollar kısa süreliğine parlar ve kapanış mesajı belirir, birkaç
+  saniye ekranda kalır ve tur baştan başlar — sayfa yenilemeye gerek kalmadan sürekli
+  çalışan bir döngüdür.
 - **`prefers-reduced-motion` desteği**: Bu tercihi açık kullanıcılarda animasyon hiç
   çalışmaz; ahtapot tamamen çizili ve tüm 8 hizmet etiketi aynı anda, sabit şekilde gösterilir.
 - **Entegrasyon diyagramı** (`Sistemleriniz Konuşsun...` bölümü): Aynı ahtapot geometrisinin
